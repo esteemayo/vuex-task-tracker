@@ -89,6 +89,11 @@ export default {
   margin: 5px;
   padding: 3px 7px;
   font-size: 17px;
+  caret-color: green;
+}
+
+.form-control input:focus {
+  outline: none;
 }
 
 .form-control-check {
