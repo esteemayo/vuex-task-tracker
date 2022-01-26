@@ -14,14 +14,14 @@ const tasks = {
       state.tasks.push(payload);
     },
     removeTask(state, payload) {
-      state.tasks = state.tasks.filter((task) => task.id !== payload);
+      state.tasks = state.tasks.filter((task) => task._id !== payload);
     },
     toggleAddTask(state) {
       state.showAddTask = !state.showAddTask;
     },
     setToggleReminder(state, payload) {
       state.tasks = state.tasks.map((task) =>
-        task.id === payload.id ? { ...task, reminder: payload.reminder } : task
+        task._id === payload._id ? { ...task, reminder: payload.reminder } : task
       );
     },
   },
@@ -59,12 +59,12 @@ const tasks = {
       commit('removeTask', payload);
     },
     async toggleReminder({ commit }, payload) {
-      const res = await fetch(`api/tasks/${payload.id}`);
+      const res = await fetch(`api/tasks/${payload._id}`);
       const taskToToggle = await res.json();
 
       const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
 
-      const resp = await fetch(`api/tasks/${payload.id}`, {
+      const resp = await fetch(`api/tasks/${payload._id}`, {
         method: 'PUT',
         headers: {
           'content-type': 'application/json',
